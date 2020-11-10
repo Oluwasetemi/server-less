@@ -16,11 +16,11 @@
 
 				(async () => {
 					console.log('special');
-					const res = await fetch('https://romantic-shannon-aee2a7.netlify.app/.netlify/functions/hello-world');
+					const res = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/hello-world');
 					const final = await res.text();
 					console.log(final);
 
-					const result = await fetch('https://romantic-shannon-aee2a7.netlify.app/.netlify/functions/users');
+					const result = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/users');
 					const resultJson = await result.json();
 					console.log(resultJson);
 				})()
