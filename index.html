@@ -23,7 +23,7 @@
 
 				(async () => {
 					console.log('special');
-					const res = await fetch(`https://romantic-shannon-aee2a7.netlify.app/.netlify/functions/?category=shoes&size=10&color=blue&name=${name}`);
+					const res = await fetch(`https://romantic-shannon-aee2a7.netlify.app/.netlify/functions/hello-world?category=shoes&size=10&color=blue&name=${name}`);
 					// const res = await fetch(`http://localhost:8888/.netlify/functions/hello-world?category=shoes&size=10&color=blue&name=${name}`);
 					const final = await res.json();
 
