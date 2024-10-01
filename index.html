@@ -12,17 +12,58 @@
 
 		<script>
 			window.onload = function () {
-				console.log('working');
+				const queryString = window.location.search;
+				console.log('working', window.location.search);
+
+				const params = new URLSearchParams(queryString);
+				console.log(params);
+
+				const name = params.get('name')
+				console.log(name);
 
 				(async () => {
 					console.log('special');
-					const res = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/hello-world');
-					const final = await res.text();
+					// const res = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/hello-world');
+					const res = await fetch(`http://localhost:8888/.netlify/functions/hello-world?category=shoes&size=10&color=blue&name=${name}`);
+					const final = await res.json();
+
+					document.querySelector('p').textContent = final.message;
 					console.log(final);
 
-					const result = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/users');
+
+					// const result = await fetch('https://functions.oluwasetemi.dev/.netlify/functions/users');
+					const result = await fetch(`http://localhost:8888/.netlify/functions/users?name=${name}`);
 					const resultJson = await result.json();
 					console.log(resultJson);
+					// dump everything in the html body
+					let pre = document.createElement('pre')
+					pre.textContent = JSON.stringify(resultJson, null, 2);
+					console.log(pre);
+					document.body.appendChild(pre);
+
+					let fragment = document.createDocumentFragment();
+					let ul = document.createElement('ul');
+
+					let location = {
+						country: resultJson.country.name,
+						city: resultJson.city,
+						ip: resultJson.ip
+					}
+
+					const locationElement = document.createElement('li');
+					locationElement.textContent = `Country: ${location.country}`;
+
+					const cityElement = document.createElement('li');
+					cityElement.textContent = `City: ${location.city}`;
+
+					const ipElement = document.createElement('li');
+					ipElement.textContent = `IP: ${location.ip}`;
+
+					fragment.append(locationElement, cityElement, ipElement);
+
+					ul.appendChild(fragment);
+
+					document.body.appendChild(ul);
 				})()
 
 			}
